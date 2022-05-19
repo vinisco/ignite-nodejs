@@ -1,4 +1,5 @@
-import { CategoriesRepository } from "../repositories/CategoriesRepository";
+// import { CategoriesRepository } from "../repositories/CategoriesRepository";
+import { ICategoriesRepository } from "../repositories/ICategoriesRepository";
 
 interface IRequest {
   name: string;
@@ -6,12 +7,13 @@ interface IRequest {
 }
 
 class CreateCategoryService {
-  /* short version but th eslint not accept
+  /* short version but eslint not accept
    constructor(private categoriesRepository: CategoriesRepository) {}
   */
 
-  private categoriesRepository: CategoriesRepository;
-  constructor(categoriesRepository: CategoriesRepository) {
+  private categoriesRepository: ICategoriesRepository;
+
+  constructor(categoriesRepository: ICategoriesRepository) {
     this.categoriesRepository = categoriesRepository;
   }
 
