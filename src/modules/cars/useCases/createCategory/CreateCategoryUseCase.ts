@@ -6,10 +6,6 @@ interface IRequest {
 }
 
 class CreateCategoryUseCase {
-  /* short version but eslint not accept
-   constructor(private categoriesRepository: CategoriesRepository) {}
-  */
-
   private categoriesRepository: ICategoriesRepository;
 
   constructor(categoriesRepository: ICategoriesRepository) {
