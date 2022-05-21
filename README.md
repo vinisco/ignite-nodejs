@@ -56,5 +56,5 @@ Start the server
 
 ## License
 
-This project is [MIT](addlinkhere) licensed.
+This project is [MIT](LICENSE) licensed.
 
