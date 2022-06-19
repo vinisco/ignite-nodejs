@@ -21,7 +21,8 @@ services:
       - 3333:3333
     volumes:
       - .:/usr/app
-    network_mode: host
+    # network_mode: host
+
 
 volumes:
   pgdata:
