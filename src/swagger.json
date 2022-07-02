@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Rental-X Documentation",
+    "title": "Rent-X Documentation",
     "description": "This is an Apin Rent",
     "version": "1.0.0",
     "contact": {
@@ -88,31 +88,36 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "objetct",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  }
-                },
-                "example": {
-                  "name": "Speficification name sample",
-                  "description": "Specifiaction description sample"
-                }
+                "$ref": "#definitions/Specification"
               }
             }
           }
-        },
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "500": {
-            "description": "Specification already exists"
-          }
         }
+      },
+      "responses": {
+        "201": {
+          "description": "Created"
+        },
+        "500": {
+          "description": "Specification already exists"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Specification": {
+      "type": "objetct",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "example": {
+        "name": "Speficification name sample",
+        "description": "Specifiaction description sample"
       }
     }
   }
