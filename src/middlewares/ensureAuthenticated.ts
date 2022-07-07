@@ -26,7 +26,6 @@ export async function ensureAuthenticated(
       token,
       "75215c28d69829adc061509f586249002ff6a422"
     ) as IPayload;
-    next();
 
     const usersRepository = new UsersRepository();
 
@@ -35,6 +34,12 @@ export async function ensureAuthenticated(
     if (!user) {
       throw new AppError("User does not exists!", 401);
     }
+
+    request.user = {
+      id: user_id,
+    };
+
+    next();
   } catch {
     throw new AppError("Invalid token!", 401);
   }
