@@ -19,32 +19,37 @@
   
   
   
-## Run Locally
+## Run Locally :computer:
 
 Clone the project
 
 ```bash
-  git clone https://github.com/willliamdev/trilha-ignite.git
+git clone https://github.com/willliamdev/trilha-ignite.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd trilha-ignite
+cd trilha-ignite
 ```
 
 Install dependencies
 
 ```bash
-  yarn
+yarn
 ```
 
-Start the server
+Start docker services
 
 ```bash
-  yarn dev
+docker compose up
 ```
 
+Run migrations to create tables
+
+```bash
+yarn typeorm migration:run
+```
 
 ## Authors
 
