@@ -101,4 +101,7 @@
 ---
 ### Diagrama
 
-<img aling="center" width="80%" src="./diagrama.png" >
+
+<p align=center> 
+  <img width="95%" src="./diagrama.png" >
+</p>
