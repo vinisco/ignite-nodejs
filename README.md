@@ -50,6 +50,9 @@ Run migrations to create tables
 ```bash
 yarn typeorm migration:run
 ```
+## Business rules 
+- [pt_br](.github/business_rules.md)
+<!-- to-do: translate to english -->
 
 ## Authors
 
