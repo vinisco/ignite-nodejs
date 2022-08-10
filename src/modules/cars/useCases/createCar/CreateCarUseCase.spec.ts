@@ -1,4 +1,5 @@
 import { CarsRepositoryInMemory } from "@modules/cars/repositories/in-memory/CarsRepositoryInMemory";
+import { AppError } from "@shared/errors/AppError";
 
 import { CreateCarUseCase } from "./CreateCarUseCase";
 
@@ -44,6 +45,6 @@ describe("Create Car", () => {
         brand: "chevrolet",
         category_id: "category",
       });
-    });
+    }).rejects.toBeInstanceOf(AppError);
   });
 });
