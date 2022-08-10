@@ -47,4 +47,20 @@ describe("Create Car", () => {
       });
     }).rejects.toBeInstanceOf(AppError);
   });
+
+  it("should be able to create a car with availability setted true by default", async () => {
+    const car = await createCarUseCase.execute({
+      name: "Astra",
+      description: "Nave do azaghal",
+      daily_rate: 70,
+      license_plate: "ASDF9090",
+      fine_amount: 60,
+      brand: "chevrolet",
+      category_id: "category",
+    });
+
+    console.log(car);
+
+    expect(car.available).toBe(true);
+  });
 });
