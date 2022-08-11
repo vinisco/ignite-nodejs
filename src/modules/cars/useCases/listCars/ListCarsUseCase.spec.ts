@@ -11,7 +11,7 @@ describe("List Cars", () => {
     listCarsUseCase = new ListCarsUseCase(carsRepositoryInMemory);
   });
 
-  it("should be able list all availabe cars", async () => {
+  it("should be able list all availabes cars", async () => {
     const car = await carsRepositoryInMemory.create({
       name: "gol",
       description: "só gol de placa",
