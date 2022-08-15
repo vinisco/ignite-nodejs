@@ -1,3 +1,5 @@
+import { inject, injectable } from "tsyringe";
+
 import { Car } from "@modules/cars/infra/typeorm/entities/Car";
 import { CarsRepositoryInMemory } from "@modules/cars/repositories/in-memory/CarsRepositoryInMemory";
 
@@ -7,7 +9,7 @@ interface IRequest {
   name?: string;
 }
 
-class ListCarsUseCase {
+class ListAvailableCarsUseCase {
   constructor(private carsRepository: CarsRepositoryInMemory) {
     /*  */
   }
@@ -22,4 +24,4 @@ class ListCarsUseCase {
     return cars;
   }
 }
-export { ListCarsUseCase };
+export { ListAvailableCarsUseCase };
