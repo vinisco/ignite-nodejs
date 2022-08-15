@@ -9,8 +9,12 @@ interface IRequest {
   name?: string;
 }
 
+@injectable()
 class ListAvailableCarsUseCase {
-  constructor(private carsRepository: CarsRepositoryInMemory) {
+  constructor(
+    @inject("CarsRepository")
+    private carsRepository: CarsRepositoryInMemory
+  ) {
     /*  */
   }
 
