@@ -1,20 +1,22 @@
 import { CarsRepositoryInMemory } from "@modules/cars/repositories/in-memory/CarsRepositoryInMemory";
+import { SpecificationsRepositoryInMemory } from "@modules/cars/repositories/in-memory/SpecificationsRepositoryInMemory";
 import { AppError } from "@shared/errors/AppError";
 
 import { CreateCarSpecificationUseCase } from "./CreateCarSpecificationUseCase";
 
 let createCarSpecificationUseCase: CreateCarSpecificationUseCase;
 let carsRepositoryInMemory: CarsRepositoryInMemory;
+let specificationRepositoryInMemory: SpecificationsRepositoryInMemory;
 
 describe("Create car specification", () => {
   beforeEach(() => {
     carsRepositoryInMemory = new CarsRepositoryInMemory();
+    specificationRepositoryInMemory = new SpecificationsRepositoryInMemory();
     createCarSpecificationUseCase = new CreateCarSpecificationUseCase(
-      carsRepositoryInMemory
+      carsRepositoryInMemory,
+      specificationRepositoryInMemory
     );
   });
-
-  // fix promisse error
 
   it("should not be able to add a new specification to a non-existent car", async () => {
     const car_id = "2222";
@@ -39,7 +41,17 @@ describe("Create car specification", () => {
       category_id: "category",
     });
 
-    const specifications_id = ["3333"];
+    const specification_test1 = await specificationRepositoryInMemory.create({
+      name: "low rider",
+      description: "Va pelo estilo, nao pela eficiencia",
+    });
+
+    const specification_test2 = await specificationRepositoryInMemory.create({
+      name: "Porta mala na frente",
+      description: "Nao sei que exigiria isso mas ta ai",
+    });
+
+    const specifications_id = [specification_test1.id, specification_test2.id];
 
     createCarSpecificationUseCase.execute({
       car_id: car.id,
