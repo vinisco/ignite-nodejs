@@ -32,30 +32,36 @@ describe("Create car specification", () => {
 
   it("should be able to add a new specification to a car", async () => {
     const car = await carsRepositoryInMemory.create({
-      name: "fusca",
-      description: "fusca do didi",
+      name: "Tesla model X",
+      description:
+        "For those who need performance and utility, with standard AWD, first-class storage.",
       daily_rate: 70,
       license_plate: "ASDF8080",
       fine_amount: 60,
-      brand: "volkswagen",
-      category_id: "category",
+      brand: "tesla",
+      category_id: "eletric",
     });
 
     const specification_test1 = await specificationRepositoryInMemory.create({
-      name: "low rider",
-      description: "Va pelo estilo, nao pela eficiencia",
+      name: "autopilot",
+      description:
+        "Tesla Autopilot is a suite of advanced driver-assistance system",
     });
 
     const specification_test2 = await specificationRepositoryInMemory.create({
-      name: "Porta mala na frente",
-      description: "Nao sei que exigiria isso mas ta ai",
+      name: "Speed assist",
+      description:
+        "You can choose if and how ysou are warned when you exceed the speed limit",
     });
 
     const specifications_id = [specification_test1.id, specification_test2.id];
 
-    createCarSpecificationUseCase.execute({
+    const specifications_cars = await createCarSpecificationUseCase.execute({
       car_id: car.id,
       specifications_id,
     });
+
+    expect(specifications_cars).toHaveProperty("specifications");
+    expect(specifications_cars.specifications.length).toBe(2);
   });
 });
