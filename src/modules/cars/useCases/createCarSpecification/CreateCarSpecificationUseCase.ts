@@ -31,7 +31,9 @@ class CreateCarSpecificationUseCase {
       specifications_id
     );
 
-    console.log(specifications);
+    if (specifications.length === 0) {
+      throw new AppError("Specification(s) doesn't exist!");
+    }
 
     carExists.specifications = specifications;
 

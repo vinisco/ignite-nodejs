@@ -64,4 +64,26 @@ describe("Create car specification", () => {
     expect(specifications_cars).toHaveProperty("specifications");
     expect(specifications_cars.specifications.length).toBe(2);
   });
+
+  it("should not be able to add a non-existent specification to a car", async () => {
+    const car = await carsRepositoryInMemory.create({
+      name: "Tesla model X",
+      description:
+        "For those who need performance and utility, with standard AWD, first-class storage.",
+      daily_rate: 70,
+      license_plate: "ASDF8080",
+      fine_amount: 60,
+      brand: "tesla",
+      category_id: "eletric",
+    });
+
+    const specifications_id = ["3333"];
+
+    await expect(
+      createCarSpecificationUseCase.execute({
+        car_id: car.id,
+        specifications_id,
+      })
+    ).rejects.toBeInstanceOf(AppError);
+  });
 });
