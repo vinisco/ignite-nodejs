@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 import { RentalsRepositoryInMemory } from "@modules/rentals/repositories/in-memory/RentalsRepositoryInMemory";
 import { AppError } from "@shared/errors/AppError";
 
@@ -7,6 +9,8 @@ let createRentalUseCase: CreateRentalUseCase;
 let rentalsRepositoryInMemory: RentalsRepositoryInMemory;
 
 describe("Create Rental", () => {
+  const oneDay = dayjs().add(1, "day").toDate();
+
   beforeEach(() => {
     rentalsRepositoryInMemory = new RentalsRepositoryInMemory();
     createRentalUseCase = new CreateRentalUseCase(rentalsRepositoryInMemory);
@@ -16,7 +20,7 @@ describe("Create Rental", () => {
     const rental_test = {
       car_id: "car_id_test",
       user_id: "user_id_test",
-      expected_return_date: new Date(),
+      expected_return_date: oneDay,
     };
 
     const rental = await createRentalUseCase.execute(rental_test);
@@ -31,7 +35,7 @@ describe("Create Rental", () => {
       const rental_test = {
         car_id: "car_id_test1",
         user_id: "user_id_test1",
-        expected_return_date: new Date(),
+        expected_return_date: oneDay,
       };
 
       await createRentalUseCase.execute(rental_test);
@@ -45,16 +49,29 @@ describe("Create Rental", () => {
       const rental_test = {
         car_id: "car_id_test2",
         user_id: "user_id_test2",
-        expected_return_date: new Date(),
+        expected_return_date: oneDay,
       };
       const rental2_test = {
         car_id: "car_id_test2",
         user_id: "user_id_test222",
-        expected_return_date: new Date(),
+        expected_return_date: oneDay,
       };
       await createRentalUseCase.execute(rental_test);
 
       await createRentalUseCase.execute(rental2_test);
+    }).rejects.toBeInstanceOf(AppError);
+  });
+
+  it("should not be possible to rent a car for less than 24 hours", async () => {
+    expect(async () => {
+      const insufficientTime = dayjs().add(23, "hours").toDate();
+      const rental_test = {
+        car_id: "car_id_test3",
+        user_id: "user_id_test3",
+        expected_return_date: insufficientTime,
+      };
+
+      await createRentalUseCase.execute(rental_test);
     }).rejects.toBeInstanceOf(AppError);
   });
 });
