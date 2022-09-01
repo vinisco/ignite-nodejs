@@ -3,9 +3,8 @@ import utc from "dayjs/plugin/utc";
 
 import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental";
 import { IRentalsRepository } from "@modules/rentals/repositories/IRentalsRepository";
+import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
 import { AppError } from "@shared/errors/AppError";
-
-dayjs.extend(utc);
 
 interface IRequest {
   user_id: string;
@@ -14,7 +13,10 @@ interface IRequest {
 }
 
 class CreateRentalUseCase {
-  constructor(private rentalsRepository: IRentalsRepository) {}
+  constructor(
+    private rentalsRepository: IRentalsRepository,
+    private dateProvider: IDateProvider
+  ) {}
 
   async execute({
     user_id,
@@ -38,18 +40,14 @@ class CreateRentalUseCase {
       throw new AppError("There's already a rental in progress by the user!");
     }
 
-    const expectedReturnDateUTC = dayjs(expected_return_date)
-      .utc()
-      .local()
-      .format();
+    const currentTime = this.dateProvider.currentTime();
 
-    const currentTime = dayjs().utc().local().format();
+    const diffHours = this.dateProvider.compareInHours(
+      currentTime,
+      expected_return_date
+    );
 
-    const compare = dayjs(expectedReturnDateUTC).diff(currentTime, "hours");
-
-    console.log(compare);
-
-    if (compare < minimumHoursToRent) {
+    if (diffHours < minimumHoursToRent) {
       throw new AppError("The minimum time to rent a car is 24 hours!");
     }
 
