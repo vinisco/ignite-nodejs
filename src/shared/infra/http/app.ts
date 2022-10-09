@@ -32,4 +32,4 @@ app.use(
   }
 );
 
-app.listen(3333);
+export { app };
